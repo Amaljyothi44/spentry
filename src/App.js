@@ -247,7 +247,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  baseURL: "http://amaljyothi444.pythonanywhere.com/"
+  baseURL: "https://amaljyothi444.pythonanywhere.com/"
 });
 
 function App() {
