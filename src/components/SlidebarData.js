@@ -37,11 +37,5 @@ export const SidebarData = [
     icon: <IoIcons.IoIosPaper />,
     cName: "nav-text"
   },
-  {
-    title: "Settings",
-    path: "/settings",
-    icon: <IoIcons.IoMdHelpCircle />,
-    cName: "nav-text"
-  },
   
 ];

@@ -1,27 +1,78 @@
 
-import React, { useState} from "react";
-import * as FaIcons from "react-icons/fa"; 
+import React, { useState, useEffect } from "react";
+import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SlidebarData";
 import "./Navbar.css";
+import axios from "axios";
+import App from "../App";
 
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
+
+const client = axios.create({
+  baseURL: "http://localhost:8000/"
+});
 
 
 export default function Navbar() {
-  const [sidebar, setSidebar] = useState(false);
 
+  const [sidebar, setSidebar] = useState(false);
+  const [currentUser, setCurrentUser] = useState();
   const showSidebar = () => setSidebar(!sidebar);
+
+  const [username, setUsername] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+     
+      try {
+        const response = await client.get('/api/user');
+  
+        const { data } = response; // Extract username and email directly from response.data
+        setUsername(data.username);
+        console.log(data)
+        // Do something with the email if needed
+        // ...
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+
+  function submitLogout(e) {
+    e.preventDefault();
+    client
+      .post("/api/logout/", { withCredentials: true })
+      .then(function (res) {
+        setCurrentUser(false);
+        window.location.href = '/';
+      })
+      .catch(function (error) {
+        console.error("Logout failed:", error);
+      });
+    return <App />
+  }
+  if (currentUser) {
+
+  }
 
   return (
     <>
-      <IconContext.Provider value={{ color: "#FFF",size:'20'}}>
+      <IconContext.Provider value={{ color: "#FFF", size: '20' }}>
         <div className="navbar">
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          <div className="name-display">name</div>
+          <div className="name-display">{username}</div>
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
@@ -37,12 +88,22 @@ export default function Navbar() {
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>
+
                 </li>
+
               );
             })}
+            <div >
+              
+              <form onSubmit={e => submitLogout(e)}>
+                <button className="logbtn" type="submit" >Log out</button>
+              </form>
+              </div>
           </ul>
+
         </nav>
       </IconContext.Provider>
+
     </>
   );
 }

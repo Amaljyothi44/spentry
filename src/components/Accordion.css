@@ -1,0 +1,45 @@
+.container-acc {
+   padding: 4px;
+}
+
+.accordion {
+    width: 100%;
+  }
+  .accordion-item {
+    border: 1px solid #ffffff;
+    /* margin-bottom: 10px; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .accordion-header {
+    background-color: #2c2c2c;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .accordion-body {
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .accordion-icon {
+    margin-left: auto;
+  }
+  
+  .accordion-body {
+    padding: 10px;
+  }
+
+  
+.pencile {
+    margin-right: 10px;
+}

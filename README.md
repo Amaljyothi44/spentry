@@ -74,6 +74,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     "username":"test",
     "password":"testing123"
 }
+
+{
+    "email":"fawaz@gmail.com",
+    "username":"fawaz",
+    "password":"fawaz123"
+}
+
+{
+
+    "title": "My Note",
+    "content": "This is the content of my note.",
+    "user": 1
+}
+
 test@gmail.com
 testing123
 
@@ -84,3 +98,5 @@ testing123
 }
 
 git push --set-upstream origin main
+
+https://main--extraordinary-taiyaki-1d1b4c.netlify.app/
