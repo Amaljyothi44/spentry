@@ -1,0 +1,55 @@
+.container {  
+    
+    background: #D9D9D9;
+}
+
+
+
+.left-container,
+.right-container {
+    width: calc(50% - 1rem);
+    height: 100%;
+}
+
+.left-container {
+    margin-right: .8rem;
+    margin-left: .8rem;
+    background: #b31a1a;
+    border-radius: 10px;
+}
+
+
+
+.mini-container0 {
+    padding-bottom: 2rem;
+    width: 20rem;
+    height: auto;
+    background: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+
+}
+.Title {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+    font-style: normal;
+font-weight: 600;
+font-size: 20px;
+/* line-height: 4px; */
+color: #000000;
+}
+
+.Goal0 {
+text-align: center;
+padding-bottom: 4px;
+font-style: normal;
+font-weight: 500;
+font-size: 40px;
+line-height: 60px;
+color: #000000;
+padding-top: 0.6rem;
+}
+
+
+

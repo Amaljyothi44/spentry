@@ -50,7 +50,8 @@
   padding-top: .9rem;
   padding-bottom: .9rem;
   display: flex;
-  border: 1px solid #ccc;
+  border: 1px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   justify-content: space-between;
   margin-bottom: 5px;
 }
@@ -60,7 +61,7 @@
 }
 
 .amount {
-  margin-left: 9rem;
+  margin-left: 8rem;
   flex: 1;
 }
 .bar-line {
@@ -73,4 +74,9 @@
   border: #34373B;
   border-width: 15px;
 
+}
+
+.income {
+  margin-left: 8rem;
+  flex: 1;
 }

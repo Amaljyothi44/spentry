@@ -34,11 +34,8 @@ export default function Navbar() {
       try {
         const response = await client.get('/api/user');
   
-        const { data } = response; // Extract username and email directly from response.data
+        const { data } = response; 
         setUsername(data.username);
-        console.log(data)
-        // Do something with the email if needed
-        // ...
       } catch (error) {
         console.error('Error fetching data:', error);
       }

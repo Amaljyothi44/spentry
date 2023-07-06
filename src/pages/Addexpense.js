@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
-import './Modal.css'; 
+import '../components/Modal.css'; 
 import axios from 'axios';
-import FxButton from './FxButton';
+import FxButton from '../components/FxButton';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -13,9 +13,9 @@ const client = axios.create({
 });
 
 function Modal(props) {
-  const { show, onHide, addNote } = props;
+  const { show, onHide, addExpense } = props;
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [amount, setAmount] = useState('');
 
 
   const handleTitleChange = (e) => {
@@ -23,36 +23,32 @@ function Modal(props) {
   };
 
   const handleContentChange = (e) => {
-    setContent(e.target.value);
+    setAmount(e.target.value);
   };
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       const response = await client.post(
-        "api/notes/",
+        "api/expense/",
         {
           title: title,
-          content: content
+          amount: amount
         }
       );
-      // if (handleSubmit) {
-      //   window.location.reload();
-      // }
-      addNote(response.data); 
-      console.log('Success:', response.data);
+
+      addExpense(response.data); 
     } catch (error) {
       console.error('Error:', error);
     }
   }
   
-
   return (
     <div className={`modal ${show ? 'show' : ''}`}>
       <div className="modal-overlay" onClick={onHide}></div>
       <div className="modal-content">
         <div className="modal-header">
-          <h2 className="modal-title">Create Note</h2>
+          <h2 className="modal-title">Income</h2>
 
           <button className="modal-close" onClick={onHide}>
             &times;
@@ -62,21 +58,23 @@ function Modal(props) {
         <form onSubmit={e =>handleSubmit(e)}>
         <div className="modal-body">
           <div className="form-group">
+            {/* <label htmlFor="title">Note</label> */}
             <input
               type="text"
               id="title"
               value={title}
               onChange={handleTitleChange}
-              placeholder="Enter note title"
+              placeholder="Note"
               className="form-control"
             />
           </div>
           <div className="form-group">
+            {/* <label htmlFor="content">amount</label> */}
             <textarea
-              id="content"
-              value={content}
+              id="amount"
+              value={amount}
               onChange={handleContentChange}
-              placeholder="Enter note content"
+              placeholder="amount"
               className="form-control"
             ></textarea>
           </div>
@@ -107,7 +105,7 @@ function Modals(props) {
         <FxButton />
 
       </div>
-      {modalShow && <Modal show={modalShow} onHide={() => setModalShow(false)} addNote={props.addNote} />}
+      {modalShow && <Modal show={modalShow} onHide={() => setModalShow(false)} addExpense={props.addExpense} />}
     </>
   );
 }

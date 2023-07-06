@@ -3,11 +3,14 @@ import './Accordion.css';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import {  BsPencilSquare} from 'react-icons/bs';
 import { AiFillDelete} from 'react-icons/ai';
-function AccordionItem({ title, content }) {
+function AccordionItem({ title, content, onDelete, id }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
+  };
+  const handleDelete = () => {
+    onDelete(id);
   };
 
   return (
@@ -18,7 +21,7 @@ function AccordionItem({ title, content }) {
 
         <span className="accordion-icon">
         <BsPencilSquare className='pencile'/>
-        <AiFillDelete className='pencile'/>
+        <AiFillDelete className='pencile' onClick={handleDelete}/>
                 {isOpen === true ? <FaChevronUp /> : <FaChevronDown />}
               </span>
       </button>
@@ -28,11 +31,11 @@ function AccordionItem({ title, content }) {
   );
 }
 
-function Accordion({ items }) {
+function Accordion({ items, onDelete }) {
   return (
     <div className="accordion">
       {items.map((item) => (
-        <AccordionItem key={item.note_id} title={item.title} content={item.content} />
+        <AccordionItem key={item.id} id={item.id} title={item.title} content={item.content} onDelete={onDelete} />
       ))}
     </div>
   );

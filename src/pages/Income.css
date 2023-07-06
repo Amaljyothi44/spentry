@@ -22,15 +22,16 @@
 }
 
 .left-container {
+   margin-top: 1rem;
     margin-right: .8rem;
     margin-left: .8rem;
     background: #D9D9D9;
     border-radius: 10px;
+    text-align: center;
 }
 
 .right-container {
     margin-right: .8rem;
-    
     background: #FFFFFF;
     border-radius: 10px;
     text-align: center;
@@ -134,14 +135,14 @@ padding-top: 0.6rem;
     color: #000000;
 }
 
-.amount
+.income
 {
     margin-top: 1px;  
     font-style: normal;
     font-weight:bolder;
     font-size: 18px;
     line-height: 36px;
-    color: #FF0000;
+    color: #32E515;
 }
 .Rs{
     

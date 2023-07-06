@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import '../components//Modal.css'; // Import your custom CSS file
+import React, { useState} from 'react';
+import '../components/Modal.css'; 
 import axios from 'axios';
 import FxButton from '../components/FxButton';
 
@@ -8,109 +8,93 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  baseURL: "http://localhost:8000/"
+  baseURL: "http://localhost:8000/",
+
 });
 
 function Modal(props) {
-  const { show, onHide } = props;
+  const { show, onHide, addIncome } = props;
+  const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
-  const [content, setContent] = useState('');
-  const [user_id, setUser_id] = useState('');
+
 
   const handleTitleChange = (e) => {
-    setAmount(e.target.value);
+    setTitle(e.target.value);
   };
 
   const handleContentChange = (e) => {
-    setContent(e.target.value);
+    setAmount(e.target.value);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await client.get('/api/user');
-        const { user_id } = response.data.user;
-        setUser_id(user_id);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const handleSubmit = async () => {
-    console.log(user_id);
-    console.log(amount);
-    console.log(content);
-
+  async function handleSubmit(e) {
+    e.preventDefault();
     try {
-      const response = await client.post('api/income/create/',
+      const response = await client.post(
+        "api/income/",
         {
-          amount: parseInt(amount, 10),
-          content: content
+          title: title,
+          amount: amount
         }
-        );
-      console.log('Note created:', response.data);
-      setAmount('');
-      setContent('');
-      onHide();
+      );
+
+      addIncome(response.data); 
     } catch (error) {
-      console.error('Error creating note:', error);
+      console.error('Error:', error);
     }
-  };
-
- 
-
+  }
+  
   return (
     <div className={`modal ${show ? 'show' : ''}`}>
       <div className="modal-overlay" onClick={onHide}></div>
       <div className="modal-content">
         <div className="modal-header">
-          <h2 className="modal-title">Create Note</h2>
+          <h2 className="modal-title">Income</h2>
 
           <button className="modal-close" onClick={onHide}>
             &times;
           </button>
 
         </div>
+        <form onSubmit={e =>handleSubmit(e)}>
         <div className="modal-body">
           <div className="form-group">
-            <label htmlFor="title">Title</label>
+            {/* <label htmlFor="title">Note</label> */}
             <input
               type="text"
               id="title"
-              value={amount}
+              value={title}
               onChange={handleTitleChange}
-              placeholder="Enter note title"
+              placeholder="Note"
               className="form-control"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="content">Content</label>
+            {/* <label htmlFor="content">amount</label> */}
             <textarea
-              id="content"
-              value={content}
+              id="amount"
+              value={amount}
               onChange={handleContentChange}
-              placeholder="Enter note content"
+              placeholder="amount"
               className="form-control"
             ></textarea>
           </div>
         </div>
         <div className="modal-footer">
-          <button className="modal-button" onClick={e =>handleSubmit(e)}>
+          <button className="modal-button" type="submit" >
             Save
           </button>
           <button className="modal-button" onClick={onHide}>
             Cancel
           </button>
         </div>
+        </form>
       </div>
     </div>
   );
 }
 
 
-function IncomeAdd() {
+function Modals(props) {
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -121,9 +105,9 @@ function IncomeAdd() {
         <FxButton />
 
       </div>
-      {modalShow && <Modal show={modalShow} onHide={() => setModalShow(false)} />}
+      {modalShow && <Modal show={modalShow} onHide={() => setModalShow(false)} addIncome={props.addIncome} />}
     </>
   );
 }
 
-export default IncomeAdd;
+export default Modals;
